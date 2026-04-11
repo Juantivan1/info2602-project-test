@@ -1,5 +1,9 @@
 async function getWorkoutData(){
-    const response = await fetch('/api/workouts');
+    const response = await fetch('/api/workouts', {
+        method: "GET",
+        credentials: "include"
+    });
+
     return response.json();
 }
 
