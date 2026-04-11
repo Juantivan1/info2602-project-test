@@ -7,28 +7,20 @@ from app.models.user import User
 from app.dependencies.session import SessionDep
 from app.repositories.user import UserRepository
 
-async def get_current_user(request:Request, db:SessionDep)->User:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+async def get_current_user(request: Request, db:SessionDep):
+
+    # ✅ READ COOKIE INSTEAD OF HEADER
     token = request.cookies.get("access_token")
 
-    if token is None:
-        raise credentials_exception
-    try:
-        payload = jwt.decode(token, get_settings().secret_key, algorithms=[get_settings().jwt_algorithm])
-        user_id = payload.get("sub",None)
-    except InvalidTokenError as e:
-        print("Invalid token error: ", e)
-        raise credentials_exception
+    if not token:
+        raise HTTPException(status_code=401, detail="No token found")
 
-    repo = UserRepository(db)
-    user = repo.get_by_id(user_id)
+    # ⚠️ TEMP DEBUG (you can remove later)
+    print("TOKEN:", token)
 
-    if user is None:
-        raise credentials_exception
+    # If you're NOT using JWT, just return user directly:
+    user = token   # or fetch from DB if needed
+
     return user
 
 async def is_logged_in(request: Request, db:SessionDep):

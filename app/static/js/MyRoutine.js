@@ -1,8 +1,11 @@
 async function getRoutine(){
-    const response = await fetch('/api/routine');
+    const response = await fetch('/api/routine', {
+        method: "GET",
+        credentials: "include"
+    });
+
     return response.json();
 }
-
 function loadRoutine(workouts){
     const container = document.querySelector('#routine-container');
 
