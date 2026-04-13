@@ -1,5 +1,6 @@
 from fastapi import Request
 from fastapi.responses import HTMLResponse
+
 from app.dependencies.auth import AuthDep
 from app.dependencies.session import SessionDep
 from . import router, templates
@@ -11,12 +12,11 @@ async def user_home_view(
     user: AuthDep,
     db: SessionDep
 ):
+
     return templates.TemplateResponse(
         request=request,
         name="app.html",
-        context={
-            "user": user
-        }
+        context={"user": user}
     )
 
 
@@ -26,6 +26,7 @@ async def routine_view(
     user: AuthDep,
     db: SessionDep
 ):
+
     return templates.TemplateResponse(
         request=request,
         name="MyRoutine.html",
