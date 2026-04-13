@@ -1,8 +1,9 @@
 async function getRoutine(){
-    const response = await fetch('/api/routine', {
-        method: "GET",
-        credentials: "include"
-    });
+    const response = await fetch('/api/workouts', {
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`
+  }
+});
 
     return response.json();
 }
