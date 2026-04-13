@@ -22,7 +22,10 @@ def signup_user(
     username: str = Form(),
     email: str = Form(),
     password: str = Form(),
+    user_repo = UserRepository,
+    auth_service = AuthService
 ):
+
     user_repo = UserRepository(db)
     auth_service = AuthService(user_repo)
 

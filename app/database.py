@@ -3,6 +3,7 @@ from sqlmodel import SQLModel, Session, create_engine
 from app.config import get_settings
 from contextlib import contextmanager
 
+
 logger = logging.getLogger(__name__)
 
 # =========================

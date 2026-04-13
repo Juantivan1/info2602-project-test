@@ -18,7 +18,7 @@ async def index_view(
         return RedirectResponse(url=request.url_for('user_home_view'), status_code=status.HTTP_303_SEE_OTHER)
 
     response = RedirectResponse(url=request.url_for('login_view'), status_code=status.HTTP_303_SEE_OTHER)
-
+    
     response.delete_cookie(
         key="access_token",
         httponly=True,
